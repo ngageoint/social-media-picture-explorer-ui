@@ -1,0 +1,175 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "components-font-awesome/scss/font-awesome.scss";
+// endbower
+body {  
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#991d40+0,d1455a+55 */
+background-color: #252235;
+color:white;
+padding-top: 62px;
+overflow: hidden;
+}
+
+
+.row {
+  margin:0; 
+  top:0;
+
+}
+nav {
+    margin:10px;
+    border:0;
+}
+.navbar-fixed-top {
+    top :0;
+}
+.navbar-inverse {
+    background-color: #635D6D;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: #fff;
+    background-color: #1D99AF;
+
+}
+/* entire container, keeps perspective */
+.navbar-inverse .navbar-brand {
+    color: #46BDD2;
+    font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size:24px;
+}
+#main-bg {
+  padding-top:0px;
+    margin:10px;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #46BDD2;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight:lighter;
+    font-size:16px;
+}
+.side-nav {
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5e9291+75,4c6f75+100 */
+background: #F1E061; /* Old browsers */
+}
+
+.leaflet-marker-icon, .leaflet-marker-shadow {
+    display: block;
+    border: 3px solid #444;
+    border-radius: 1px;
+}
+.labelled-map-file {
+    background-color: #999;
+    border-radius:3px;
+    width:auto;
+    cursor:hand;
+}
+
+#ship-tracker .leaflet-marker-icon, .leaflet-marker-shadow {
+    display: block;
+    border-width: 0px;
+    border-radius: 1px;
+}
+
+select {
+    color:black;
+}
+#image-clusterer footer {
+    background-color: #1D99AF;        
+};
+
+#image-clusterer #container {
+    margin:0;       
+}
+
+/* Specify styling for tooltip contents */
+.tooltip.customClass .tooltip-inner {
+
+box-shadow: 0 6px 12px rgba(0,0,0,.175);
+width:auto;
+background-color: #999;
+}
+/* Hide arrow */
+.tooltip.customClass .tooltip-arrow {
+}
+
+.selected-image {
+    height:85px;
+    width:85px;
+    cursor: pointer;
+    transition: all .2s;       
+    bottom:0;
+    border-radius:5px;
+    margin:0px;
+    padding:0px;
+    border-width:3px 2px 3px 1px;
+    border-style:solid;
+    border-color:#000;
+    vertical-align:bottom
+}
+
+.selected-image:hover{
+    height:190px;
+    width:190px;
+    border-radius:2px;
+    border-color:#635D6D;
+}
+
+.image-clusterer-stats {
+    font-style: 'Roboto Condensed';
+    font-size:14px;
+    background-color: #635D6D;
+    height:auto;
+    width:100%;
+    border-radius: 5px;
+    padding:7px;
+    position: relative;
+    margin-bottom:10px;
+}
+
+#image-clusterer-nav {
+    font-style: 'Roboto Condensed';
+    font-size:14px;
+    background-color: #635D6D;
+    height:auto;
+    width:200px;
+    border-radius: 5px;
+    padding:7px;
+}
+.image-clusterer-stats-select{
+    background-color: #433D4D;
+    border-radius:3px;
+    padding:1px 10px 1px 10px;
+    cursor:pointer;
+    font-weight:bold;
+
+}
+
+#sub-menu-elements{    
+    width:200px;
+    position:absolute; 
+    right:10px;
+}
+.startTime, .curTime {
+    font: 12px 'Roboto Condensed', sans-serif;
+}
+
+.curTime {
+    background-color: #1D99AF;
+    padding:4px;
+}
+
+.endTime {
+    font: 12px 'Roboto Condensed', sans-serif;
+    float:right;
+}
+
+.startTime, .endTime {
+    background-color: #635D6D;
+    padding:4px;
+}
+#nga-logo {
+    margin: 100px auto;
+    height:500px;
+    width:500px;
+}

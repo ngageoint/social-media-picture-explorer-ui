@@ -1,0 +1,25 @@
+<div id="container">
+	<div id="sub-menu-elements">
+		<div class="image-clusterer-stats">
+			Highlighted Images : {{highlightedImageCount}} <br/>
+			Selected Images : {{selectedImages.images.length}} <br/>			
+			Loc : x {{camera.position.x.toFixed(1)}}, y {{camera.position.y.toFixed(1)}}, z {{camera.position.z.toFixed(1)}}
+		</div>
+		<div class="image-clusterer-stats">			
+			Select Size : {{selectSize}} <span class="pull-right"><span class="image-clusterer-stats-select" size="increase" ng-click="changeSelectSize($event)">+</span> <span class="image-clusterer-stats-select" size="decrease" ng-click="changeSelectSize($event)">-</span></span><br/>			
+		</div>	
+		<div id="image-clusterer-nav">
+			Options <span style="float:right">+</span>
+		</div>
+	</div>
+</div>
+<footer id="selected-images" style="background:None;position:absolute;bottom:0px;left:10px;max-width:90%;white-space: nowrap;overflow-x:auto;overflow-y:hidden;">	
+	<div ng-show="selectedImages.images.length == 0" style="font-family:'Roboto Condensed';background:none;">No Images Selected</div>
+	<div ng-show="selectedImages.images.length != 0" style="bottom:0px;">		
+		<span style="bottom:0px;left:0;width:auto;min-height:20px;color:white;padding:0px;" ng-repeat="obj in selectedImages.images">			
+			<image src="{{obj}}" tooltip-placement="top" tooltip-trigger="mouseenter" uib-tooltip="Lorem ipsum dolor sit amet, consectetuer adipiscing elit."  class="selected-image" tooltip-append-to-body="true" tooltip-popup-delay="250" tooltip-animation="true"/>
+		</span>
+		<div style="bottom:0px;left:0;width:100px;min-height:100px;color:white;padding:0px;display:inline-block">
+		</div>
+	</div>	
+</footer>
