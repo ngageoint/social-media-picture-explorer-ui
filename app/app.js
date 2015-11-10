@@ -7,7 +7,6 @@ var app = angular.module('imageClustererApp', [
   'ui-timeSlider', 
   'angularjs-dropdown-multiselect',
   'angular-underscore', 
-//  'angulike', 
   'leaflet-directive'
   ]);
 
@@ -23,25 +22,27 @@ app
       var componentsPath = './views';
       var sharedPath = './views/';
       // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).
-      $urlRouterProvider
-        // If the url is ever invalid, e.g. '/asdf', then redirect to '/home' aka the home state
-        .otherwise('/');
+     //urlRouterProvider.when('', '/nga');
+      $urlRouterProvider.otherwise('/');
       // Use $stateProvider to configure your states.
-      $stateProvider
+     $stateProvider
 
       .state('home', {
         url: '/',          
         views: {   
-          'app': {
+          '': {
             templateUrl: sharedPath + 'main.html'
-          }          
+          },
+          'main@home': {
+            templateUrl: componentsPath + '/ngaView.html',            
+          }   
         }         
         })
       .state('home.nga', {
-        url: '/',          
+        url: 'nga',          
         views: {   
           'main@home': {
-            templateUrl: componentsPath + 'ngalogo/nga/ngaView.html',            
+            templateUrl: componentsPath + '/ngaView.html',            
           }          
         }         
         })

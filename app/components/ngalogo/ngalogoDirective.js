@@ -2,8 +2,8 @@ app.directive('nga', ['$rootScope', '$state',  function($rootScope, $state)
 {
   return {
     restrict: 'E',
-    templateUrl: './views/ngaView.html',
-    controller: function($rootScope, $stateParams, $scope, $state, $element) {  
+    templateUrl: './views/ngalogoView.html',
+    link: function($rootScope, $stateParams, $scope, $state, $element) {  
 ( function( window ) {
 
 'use strict';
@@ -85,7 +85,7 @@ if ( typeof define === 'function' && define.amd ) {
 			window.oRequestAnimationFrame      || 
 			window.msRequestAnimationFrame     || 
 			function(/* function */ callback){
-				window.setTimeout(callback, 1000 / 60);
+				window.setTimeout(callback, 1200 / 60);
 			}
 		);
 	}();

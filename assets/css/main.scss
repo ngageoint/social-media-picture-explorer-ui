@@ -2,6 +2,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // bower:scss
 @import "components-font-awesome/scss/font-awesome.scss";
 // endbower
+@import "component.scss";
+
 body {  
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#991d40+0,d1455a+55 */
 background-color: #252235;
