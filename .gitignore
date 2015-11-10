@@ -3,6 +3,7 @@ dist
 .tmp
 .sass-cache
 bower_components
-.png
-.jpg
+*.png
+*.jpg
 !assets/images/*.png
+*.jpg
