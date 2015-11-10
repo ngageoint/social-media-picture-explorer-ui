@@ -5,3 +5,4 @@ dist
 bower_components
 .png
 .jpg
+!assets/images/*.png
