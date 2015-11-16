@@ -1,0 +1,60 @@
+#selected-images {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+
+    max-width: 90%;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    white-space: nowrap;
+
+    background: none;
+}
+
+.selected-image {
+    bottom: 0;
+
+    width: 85px;
+    height: 85px;
+    padding: 0;
+    margin: 0;
+
+    cursor: pointer;
+    transition: all .2s;
+    vertical-align: bottom;
+
+    border-width: 3px 2px 3px 1px;
+    border-style: solid;
+    border-color: #000;
+    border-radius: 5px;
+}
+
+.selected-image:hover {
+    width: 190px;
+    height: 190px;
+
+    border-color: #635d6d;
+    border-radius: 2px;
+}
+
+#no-selected-images {
+    font-family: "Roboto Condensed";
+
+    background: none;
+}
+
+.selected-image-container {
+    bottom: 0;
+    left: 0;
+
+    width: auto;
+    min-height: 20px;
+    padding: 0;
+
+    color: white;
+}
+
+.selected-images-container {
+    bottom: 0;
+}

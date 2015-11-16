@@ -1,16 +1,1 @@
-<style>
-.angular-leaflet-map{
-	color:black;
-}
-</style>
-<leaflet width="100%" height="700px"  center="center" markers="markers" layers="layers"></leaflet>
-<footer id="selected-images" style="background:None;position:absolute;bottom:0px;left:10px;max-width:90%;white-space: nowrap;overflow-x:auto;overflow-y:hidden;">	
-	<div ng-show="selectedImages.images.length == 0" style="font-family:'Roboto Condensed';background:none;">No Images Selected</div>
-	<div ng-show="selectedImages.images.length != 0" style="bottom:0px;">		
-		<span style="bottom:0px;left:0;width:auto;min-height:20px;color:white;padding:0px;" ng-repeat="obj in selectedImages.images">			
-			<image src="{{obj}}" tooltip-placement="top" tooltip-trigger="mouseenter" uib-tooltip="this is a tweet about crazy, crazy things."  class="selected-image" tooltip-append-to-body="true" tooltip-popup-delay="250" tooltip-animation="true" ng-click="selectedImageClick($event)" data="{{$index}}"/>
-		</span>
-		<div style="bottom:0px;left:0;width:100px;min-height:100px;color:white;padding:0px;display:inline-block">
-		</div>
-	</div>	
-</footer>
+<image-clusterer-map id="image-clusterer-map"></image-clusterer-map>

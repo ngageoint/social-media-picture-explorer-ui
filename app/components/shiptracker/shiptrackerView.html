@@ -1,14 +1,9 @@
-<style>
-.angular-leaflet-map{
-	color:black;
-}
-</style>
 <div id="ship-tracker">
 	<leaflet width="100%" height="600px" center="center" markers="markers" layers="layers" event-broadcast="events"></leaflet>
 </div>
 <div class="row" style="margin-top:15px">
     <div class="col-md-1">
-       <div ng-dropdown-multiselect="" options="items" selected-model="example1model" extra-settings="example3settings" translation-texts="example5customTexts" style="display:inline-block;width:auto" ></div>
+       <div ng-dropdown-multiselect="" options="items" selected-model="shipTypesModel" extra-settings="shipTypesDropDownSettings" translation-texts="shipTypesDropDownTexts" style="display:inline-block;width:auto" ></div>
     </div>         
     <div class="col-md-3">
     	<time-slider callback="layoutSliderChanged" min="layoutStartTimeMS" max="layoutEndTimeMS" curtime="layoutCurTimeMS" step="60000" ></time-slider>

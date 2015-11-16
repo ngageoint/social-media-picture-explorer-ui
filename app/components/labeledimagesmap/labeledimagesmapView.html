@@ -1,14 +1,9 @@
-<style>
-.angular-leaflet-map{
-	color:black;
-}
-</style>
-<leaflet width="100%" height="800px"  center="center" markers="markers" layers="layers" event-broadcast="events"></leaflet>
+<leaflet width="100%" height="700px"  center="center" markers="markers" layers="layers" event-broadcast="events"></leaflet>
 <div>
-	<button class="labelled-map-file" ng-click="refresh('ship')">ships</button>
-	<button class="labelled-map-file" ng-click="refresh('tank')">tanks</button>
-	<button class="labelled-map-file" ng-click="refresh('military_uniform')">military uniforms</button>
-	<button class="labelled-map-file" ng-click="refresh('armored_personnel_carrier')">armored personnel carriers</button>
-	<button class="labelled-map-file" ng-click="refresh('cargo_helicopter')">cargo helicopters</button>
-	<button class="labelled-map-file" ng-click="refresh('drilling_platform')">drilling platforms</button>
+	<button class="labelled-map-file" ng-click="changeData('ship')">ships</button>
+	<button class="labelled-map-file" ng-click="changeData('tank')">tanks</button>
+	<button class="labelled-map-file" ng-click="changeData('military_uniform')">military uniforms</button>
+	<button class="labelled-map-file" ng-click="changeData('armored_personnel_carrier')">armored personnel carriers</button>
+	<button class="labelled-map-file" ng-click="changeData('cargo_helicopter')">cargo helicopters</button>
+	<button class="labelled-map-file" ng-click="changeData('drilling_platform')">drilling platforms</button>
 <div>

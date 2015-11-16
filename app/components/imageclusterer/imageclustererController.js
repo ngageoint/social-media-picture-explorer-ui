@@ -1,4 +1,13 @@
-app.controller('imageClustererCtrl',['$scope', 'imageCoords', function ($scope, $imageCoords) {
-	console.log("cluster images");	
-	$scope.imageCoords = $imageCoords.split("\n");	
-}])
+(function() {
+
+    'use strict';
+
+    angular
+        .module('socialMediaExplorerApp')
+        .controller('imageClustererCtrl', ['imageCoords', imageClustererCtrl]);
+
+    function imageClustererCtrl($imageCoords) {
+        var vm = this;
+        vm.imageCoords = $imageCoords.split("\n");
+    }
+})();

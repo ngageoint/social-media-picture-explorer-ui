@@ -1,48 +1,93 @@
-app.controller("mapCtrl", [ '$scope', 'selectedImages', function($scope, selectedImages) {
-	markersSet = {};	
-	ctr = 0;
-	$scope.selectedImages = selectedImages;
-	$scope.selectedImageClick = function(obj) {
-		$scope.center = {};
-		console.log(obj.target.attributes.data.value);
-		$scope.center.lat = markersSet["test" + obj.target.attributes.data.value].lat;
-		$scope.center.lng = markersSet["test" + obj.target.attributes.data.value].lng;
-		$scope.center.zoom = 7;
-	};
+/* Module to show a set of images on a map */
+/* Currently uses artificial coordinates */
 
-	selectedImages.images.forEach(function(image){		
-		markersSet["test" + ctr] = {};
-		markersSet["test" + ctr]["lat"] = Math.floor(Math.random() * 180) + 1;
-		markersSet["test" + ctr]["lng"] = Math.floor(Math.random() * 90) + 1;
-		markersSet["test" + ctr]["icon"] = {};
-		markersSet["test" + ctr]["icon"].iconUrl = image;
-		markersSet["test" + ctr]["icon"].iconSize = [75,75];
-		ctr++;
-	});	
-	angular.extend($scope, {
-		center: {
-			lat: 25.0391667,
-			lng: 121.525,
-			zoom: 3
-		},		
-		markers: markersSet,		
-		layers: {
-			baselayers: {
-				mapbox_light: {
-					name: 'Mapbox Light',
-					url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
-					type: 'xyz',
-					layerOptions: {
-						apikey: 'pk.eyJ1IjoiYnVmYW51dm9scyIsImEiOiJLSURpX0pnIn0.2_9NrLz1U9bpwMQBhVk97Q',
-						mapid: 'bufanuvols.lia22g09'
-					}
-				},
-				osm: {
-					name: 'OpenStreetMap',
-					url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-					type: 'xyz'
-				}
-			}
-		}
-	});
-}]) 
+(function() {
+
+    'use strict';
+
+    angular
+        .module('socialMediaExplorerApp')
+        .controller("imageClustererMapCtrl", ['$scope', 'selectedImages', imageClustererMapCtrl]);
+
+    //selectedImages is a service that provides access to the selected images in the dashboard
+    function imageClustererMapCtrl($scope, selectedImages) {
+
+        var vm = this; //set vm to current scope
+
+        vm.selectedImages = selectedImages;
+
+        var leaflet = {
+            markerPrefix: "img", //prefix for the names of the markers
+            defaultZoom: 4, //default zoom for leaflet
+            focusZoom: 8,
+            iconSize: [75, 75]
+        };
+
+
+        //watch for a change in the current selected image from all of the selectedimages
+        $scope.$watch('vm.selectedImages.selectedImage', selectedImageChange);
+
+        function selectedImageChange(newVal, oldVal) {
+            if (newVal != oldVal && !angular.isUndefined(newVal)) {
+                focusOnImage(newVal);
+            }
+        };
+
+        //create markers from the images for the map
+        function createMarkers(arr, leaflet) {
+            var ctr = 0;
+            var markers = {};
+
+            arr.images.forEach(function(image) {
+                markers[leaflet.markerPrefix + ctr] = {};
+                markers[leaflet.markerPrefix + ctr]["lat"] = Math.floor(Math.random() * 180) + 1; //ranom
+                markers[leaflet.markerPrefix + ctr]["lng"] = Math.floor(Math.random() * 90) + 1; //random
+
+                //create an object to represent the icon for the marker
+                var icon = {
+                    iconUrl: image,
+                    iconSize: leaflet.iconSize
+                }
+
+                markers[leaflet.markerPrefix + ctr]["icon"] = icon
+                ctr++;
+            });
+
+            return markers;
+        }
+
+        //focus the map on the specified index coords in the markers
+        function focusOnImage(index) {
+            $scope.center.lat = $scope.markers[leaflet.markerPrefix + index].lat;
+            $scope.center.lng = $scope.markers[leaflet.markerPrefix + index].lng;
+            $scope.center.zoom = leaflet.focusZoom;
+        }
+
+        angular.extend($scope, {
+            center: {
+                lat: 0,
+                lng: 0,
+                zoom: leaflet.defaultZoom
+            },
+            markers: createMarkers(vm.selectedImages, leaflet),
+            layers: {
+                baselayers: {
+                    mapbox_light: {
+                        name: 'Mapbox Light',
+                        url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
+                        type: 'xyz',
+                        layerOptions: {
+                            apikey: 'pk.eyJ1IjoiYnVmYW51dm9scyIsImEiOiJLSURpX0pnIn0.2_9NrLz1U9bpwMQBhVk97Q',
+                            mapid: 'bufanuvols.lia22g09'
+                        }
+                    },
+                    osm: {
+                        name: 'OpenStreetMap',
+                        url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        type: 'xyz'
+                    }
+                }
+            }
+        });
+    }
+})();
