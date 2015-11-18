@@ -14,16 +14,16 @@ This project was scaffolded with yeoman angular generator.  Bower is used for de
 ##Leveraged frameworks and libraries
 The application is built using bootstrap, sass, and AngularJS 1.4.7 with some angular plugins.  It heavily relies on the Threejs and the angular leaflet directive.
 
-threejs : http://threejs.org/
-angular leaflet : https://github.com/tombatossals/angular-leaflet-directive
-bootstrap : http://getbootstrap.com/
-sass : http://sass-lang.com/
+* threejs : http://threejs.org/
+* angular leaflet : https://github.com/tombatossals/angular-leaflet-directive
+* bootstrap : http://getbootstrap.com/
+* sass : http://sass-lang.com/
 
-also used :
-angular bootstrap : https://angular-ui.github.io/bootstrap/
-angular multiselect : http://dotansimha.github.io/angularjs-dropdown-multiselect/
-svg draw animation : http://tympanus.net/Development/SVGDrawingAnimation/
-angular timeslider : http://jsfiddle.net/lsiv568/WJqx7/1/
+* also used :
+* angular bootstrap : https://angular-ui.github.io/bootstrap/
+* angular multiselect : http://dotansimha.github.io/angularjs-dropdown-multiselect/
+* svg draw animation : http://tympanus.net/Development/SVGDrawingAnimation/
+* angular timeslider : http://jsfiddle.net/lsiv568/WJqx7/1/
 
 The app is currently structured into 4 main areas.
 
