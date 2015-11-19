@@ -4,15 +4,9 @@
 
     angular
         .module('socialMediaExplorerApp')
-        .controller("shipTrackerCtrl", ['$scope', 'data', 'webServicesLocal', '$interval', shipTrackerController]);
+        .controller("shipTrackerCtrl", ['$scope', 'ships', 'shipsFactory', '$interval', shipTrackerController]);
 
-    function shipTrackerController($scope, $data, $webServicesLocal, $interval) {
-
-        var dataDateIndex = 1;
-        var dataNameIndex = 5;
-        var dataTypeIndex = 6;
-
-        updateMarkers($data);
+    function shipTrackerController($scope, ships, shipsFactory, $interval) {
         //model for ship types dropdown
         $scope.shipTypesModel = [];
         //settings for the ship type dropdown
@@ -27,14 +21,14 @@
 
         $scope.markerWidth = 40;
         $scope.markerHeight = 40;
-        $scope.items = getUniqueFromCol($data, dataTypeIndex);
+        $scope.items = ships.getUniqueColValues(ships.typeIdx);
 
         $scope.$watch("shipTypesModel", function(event) {
-            $scope.getData($data, $scope.currentDate);
+            $scope.getData(ships, $scope.currentDate);
         }, true);
 
         $scope.layoutSliderChanged = function(value) {
-            $scope.getData($data, value);
+            $scope.getData(ship, value);
         };
 
 
@@ -63,49 +57,13 @@
             });
         });
 
-
-        setSliderMinMaxDates(getDataMinMaxDates($data));
+        setSliderMinMaxDates(ships.getMinMaxDates());
 
         //set the min and max dates for the slider from the range object
         function setSliderMinMaxDates(range) {
             $scope.layoutEndTimeMS = range.max;
             $scope.layoutStartTimeMS = range.min;
             $scope.currentDate = range.min;
-        }
-
-        //get the min and max dates from the data
-        function getDataMinMaxDates(data) {
-            var min = null,
-                max = 0;
-
-            //search through all of the data for the min and max dates
-            _.each(data, function(elem) {
-                min = (min == null || elem[1] < min) ? elem[1] : min;
-                max = elem[1] > max ? elem[1] : max;
-            });
-
-            return {
-                min: min,
-                max: max
-            };
-        }
-
-        //get the unique values for a column
-        function getUniqueFromCol(data, index) {
-            var vals = [];
-            //loop through all rows of data
-            for (var i = 0; i < data.length; i++) {
-                var val = data[i][index]; //current row col val
-                if (_.findWhere(vals, {
-                    'label': val
-                }) == undefined) {
-                    vals.push({
-                        'id': vals.length,
-                        'label': val
-                    });
-                }
-            }
-            return vals;
         }
 
         var stop;
@@ -124,7 +82,7 @@
                     $scope.currentDate = $scope.currentDate + dayMS;
                     //set the current time to the current date
                     $scope.layoutCurTimeMS = $scope.currentDate;
-                    $scope.getData($data, $scope.currentDate);
+                    $scope.getData(ships, $scope.currentDate);
                 } else {
                     //if the date has incremented to the end stop play
                     $scope.stopPlay();
@@ -143,13 +101,13 @@
         //update the data 
         $scope.getData = function(data, date) {
 
-            var tempData = _.filter(data, function(elem) {
-                return (new Date(elem[dataDateIndex]).toLocaleDateString() == new Date(date).toLocaleDateString() && ($scope.shipTypesModel.length == 0 || _.findWhere($scope.shipTypesModel, {
-                    'id': elem[dataTypeIndex]
+            var tempData = _.filter(ships.data, function(elem) {
+                return (new Date(elem[ships.dateIdx]).toLocaleDateString() == new Date(date).toLocaleDateString() && ($scope.shipTypesModel.length == 0 || _.findWhere($scope.shipTypesModel, {
+                    'id': elem[ships.typeIdx]
                 }) != undefined));
             });
 
-            $scope.markers = updateMarkers(tempData);
+            $scope.markers = updateMarkers(shipsFactory.setShips(tempData));
         };
 
         function updateMarkers(data) {
@@ -159,45 +117,33 @@
             var totalLat = 0.0;
             var totalLng = 0.0;
 
-            for (var i = 0; i < data.length; i++) {
-                var rec = data[i]; //get record
-                var iconUrl = getShipIconUrl(rec[2].toLowerCase());
+            for (var idx = 0; idx < data.getCount(); idx++) {
+                var iconUrl = data.getShipIconUrl(idx);
 
-                var id = rec[1].toString() + rec[0].toString();
-                var key = "marker" + id;
+                var markerId = data.getDate(idx).toString() + data.getId(idx).toString();
+                var key = "marker" + markerId;
 
                 markers[key] = {
-                    lat: parseFloat(rec[3]),
-                    lng: parseFloat(rec[4]),
+                    lat: data.getLatitude(idx),
+                    lng: data.getLongitude(idx),
                     icon: {
                         iconSize: [$scope.markerWidth, $scope.markerHeight],
                         iconUrl: iconUrl
                     },
-                    message: "<div>" + rec[5] + "<br/>" + rec[2] + "<br/>" + rec[7] + "<br/>" + rec[6]
+                    message: "<div>" + data.getShipname(idx) + "<br/>" + data.getStatus(idx) + "<br/>" + data.getType(idx)
                 };
 
-                totalLat += parseFloat(rec[3]);
-                totalLng += parseFloat(rec[4]);
+                totalLat += data.getLatitude(idx);
+                totalLng += data.getLongitude(idx);
             }
-
-            function getShipIconUrl(status) {
-                var iconUrl = "/assets/images/shipgreen.png";
-
-                if (status == "at anchor" || status == "moored" || status == "not under command") {
-                    iconUrl = "/assets/images/shipred.png";
-                }
-
-                return iconUrl;
-            }
-
             return markers;
         }
 
 
         angular.extend($scope, {
             center: {
-                lat: 25.0391667,
-                lng: 121.525,
+                lat: 70,
+                lng: 70,
                 zoom: 3
             },
             events: {
@@ -227,6 +173,7 @@
             }
         });
 
+        $scope.getData(ships);
 
         $scope.$on('$destroy', function() {
             // Make sure that the interval is destroyed too

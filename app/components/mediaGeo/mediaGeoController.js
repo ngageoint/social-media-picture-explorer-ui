@@ -7,14 +7,14 @@
 
     angular
         .module('socialMediaExplorerApp')
-        .controller("imageClustererMapCtrl", ['$scope', 'selectedImages', imageClustererMapCtrl]);
+        .controller("mediaGeoCtrl", ['$scope', 'selectedMediaFactory', mediaGeoCtrl]);
 
-    //selectedImages is a service that provides access to the selected images in the dashboard
-    function imageClustererMapCtrl($scope, selectedImages) {
+    //selectedMedia is a service that provides access to the selected images in the dashboard
+    function mediaGeoCtrl($scope, selectedMedia) {
 
         var vm = this; //set vm to current scope
 
-        vm.selectedImages = selectedImages;
+        vm.selectedMedia = selectedMedia;
 
         var leaflet = {
             markerPrefix: "img", //prefix for the names of the markers
@@ -24,10 +24,10 @@
         };
 
 
-        //watch for a change in the current selected image from all of the selectedimages
-        $scope.$watch('vm.selectedImages.selectedImage', selectedImageChange);
+        //watch for a change in the current selected image from all of the selectedMedia
+        $scope.$watch('vm.selectedMedia.selected', selectedMediaChange);
 
-        function selectedImageChange(newVal, oldVal) {
+        function selectedMediaChange(newVal, oldVal) {
             if (newVal != oldVal && !angular.isUndefined(newVal)) {
                 focusOnImage(newVal);
             }
@@ -38,7 +38,7 @@
             var ctr = 0;
             var markers = {};
 
-            arr.images.forEach(function(image) {
+            arr.media.forEach(function(image) {
                 markers[leaflet.markerPrefix + ctr] = {};
                 markers[leaflet.markerPrefix + ctr]["lat"] = Math.floor(Math.random() * 180) + 1; //ranom
                 markers[leaflet.markerPrefix + ctr]["lng"] = Math.floor(Math.random() * 90) + 1; //random
@@ -69,7 +69,7 @@
                 lng: 0,
                 zoom: leaflet.defaultZoom
             },
-            markers: createMarkers(vm.selectedImages, leaflet),
+            markers: createMarkers(vm.selectedMedia, leaflet),
             layers: {
                 baselayers: {
                     mapbox_light: {

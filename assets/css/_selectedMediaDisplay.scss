@@ -1,4 +1,4 @@
-#selected-images {
+#selected-media {
     position: absolute;
     bottom: 0;
     left: 10px;
@@ -12,7 +12,7 @@
     background: none;
 }
 
-.selected-image {
+.selected-media {
     bottom: 0;
 
     width: 85px;
@@ -30,7 +30,7 @@
     border-radius: 5px;
 }
 
-.selected-image:hover {
+.selected-media:hover {
     width: 190px;
     height: 190px;
 
@@ -38,13 +38,13 @@
     border-radius: 2px;
 }
 
-#no-selected-images {
+#no-selected-media {
     font-family: "Roboto Condensed";
 
     background: none;
 }
 
-.selected-image-container {
+.selected-media-container {
     bottom: 0;
     left: 0;
 
@@ -53,8 +53,4 @@
     padding: 0;
 
     color: white;
-}
-
-.selected-images-container {
-    bottom: 0;
 }

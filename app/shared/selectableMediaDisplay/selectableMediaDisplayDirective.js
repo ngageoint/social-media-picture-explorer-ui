@@ -4,16 +4,16 @@
 
     angular
         .module('socialMediaExplorerApp')
-        .directive("selectedImageDisplay", [selectedimagedisplayDirective]);
+        .directive("selectableMediaDisplay", [selectableMediaDisplayDirective]);
 
-    function selectedimagedisplayDirective() {
+    function selectableMediaDisplayDirective() {
 
         var directive = {
             restrict: "E",
             scope: {
-                selectedImages: "=selectedimages"
+                media: "=media"
             },
-            templateUrl: './views/selectedimagedisplayView.html',
+            templateUrl: 'views/selectableMediaDisplayView.html',
             controller: controller,
             controllerAs: 'vm',
             bindToController: true,
@@ -25,8 +25,8 @@
         function controller($scope) {
             var vm = this;
 
-            vm.imageClick = function(index) {
-                vm.selectedImages.selectedImage = index;
+            vm.mediaClick = function(index) {
+                vm.media.selected = index;
             }
         };
 

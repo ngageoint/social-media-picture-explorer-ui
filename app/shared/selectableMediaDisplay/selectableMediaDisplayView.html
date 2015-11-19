@@ -1,0 +1,8 @@
+<footer id="selected-media">		
+	<div id="no-selected-media" ng-show="vm.media.media.length == 0">No Media Selected</div>
+	<div id="selected-media-container" ng-show="vm.media.media.length != 0">		
+		<span class="selected-media-container" ng-repeat="obj in vm.media.media">			
+			<image src="{{obj}}" class="selected-media" tooltip-placement="top" tooltip-trigger="mouseenter" uib-tooltip="this is a tweet about crazy, crazy things." tooltip-append-to-body="true" tooltip-popup-delay="250" tooltip-animation="true" ng-click="vm.mediaClick($index)" data="{{$index}}"/>
+		</span>
+	</div>	
+</footer>

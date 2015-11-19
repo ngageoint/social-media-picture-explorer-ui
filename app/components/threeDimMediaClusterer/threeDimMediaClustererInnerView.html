@@ -1,0 +1,16 @@
+<div id="container">
+	<div id="sub-menu-elements">
+		<div class="three-dim-media-clusterer-stats">
+			Highlighted Media : {{vm.highlightedImageCount}} <br/>
+			Selected Media : {{vm.selectedMedia.media.length}} <br/>			
+			Loc : x {{vm.camera.position.x.toFixed(1)}}, y {{vm.camera.position.y.toFixed(1)}}, z {{vm.camera.position.z.toFixed(1)}}
+		</div>
+		<div class="three-dim-media-clusterer-stats">			
+			Select Size : {{vm.selectSize}} <span class="pull-right"><span class="three-dim-media-clusterer-stats-select" size="increase" ng-click="vm.changeSelectSize($event)">+</span> <span class="three-dim-media-clusterer-stats-select" size="decrease" ng-click="vm.changeSelectSize($event)">-</span></span><br/>			
+		</div>	
+		<div id="three-dim-media-clusterer-nav">
+			Options <span style="float:right">+</span>
+		</div>
+	</div>
+</div>
+<selectable-media-display media="vm.selectedMedia"></selectable-media-display>

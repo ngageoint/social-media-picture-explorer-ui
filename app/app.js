@@ -22,8 +22,8 @@ angular
     ['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
 
-            var componentsPath = './views';
-            var sharedPath = './views/';
+            var componentsPath = 'views';
+            var sharedPath = 'views/';
             // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).     
             $urlRouterProvider.otherwise('/');
             // Use $stateProvider to configure your states.
@@ -47,46 +47,42 @@ angular
                         }
                     }
                 })
-                .state('home.imagecluster', {
-                    url: 'imagecluster',
+                .state('home.3dClusterer', {
+                    url: '3dClusterer',
                     views: {
                         'main@home': {
-                            templateUrl: componentsPath + '/imageClustererView.html',
-                            controller: 'imageClustererCtrl',
+                            templateUrl: componentsPath + '/threeDimMediaClustererView.html',
+                            controller: 'threeDimMediaClustererCtrl',
                             controllerAs: 'vm',
                             resolve: {
-                                webServicesString: "webServicesLocal",
-                                imageCoords: function(webServicesString) {
-                                    return webServicesString.getImageCoordinates().then(function(response) {
-                                        return response.data;
-                                    });
+                                webServiceRef: "mediaFactory",
+                                media: function(webServiceRef) {
+                                    return webServiceRef.getMedia();
                                 }
                             }
                         }
                     }
                 })
-                .state('home.map', {
-                    url: 'map',
+                .state('home.geo', {
+                    url: 'geo',
                     views: {
                         'main@home': {
-                            templateUrl: componentsPath + '/imageclusterermapInnerView.html',
-                            controller: 'imageClustererMapCtrl',
+                            templateUrl: componentsPath + '/mediaGeoView.html',
+                            controller: 'mediaGeoCtrl',
                             controllerAs: 'vm'
                         }
                     }
                 })
-                .state('home.labelledmap', {
-                    url: 'labelledmap',
+                .state('home.labeledgeo', {
+                    url: 'labeledgeo',
                     views: {
                         'main@home': {
-                            templateUrl: componentsPath + '/labeledimagesmapView.html',
-                            controller: 'labelledMapCtrl',
+                            templateUrl: componentsPath + '/labeledMediaGeoView.html',
+                            controller: 'labeledMediaGeoCtrl',
                             resolve: {
-                                webServicesString: "webServicesLocal",
-                                imageMap: function(webServicesString) {
-                                    return webServicesString.getImageMap("cargo_helicopter").then(function(response) {
-                                        return response.data;
-                                    });
+                                webServiceRef: "labeledMediaFactory",
+                                labeledMedia: function(webServiceRef) {
+                                    return webServiceRef.getLabeledMedia("cargo_helicopter");
                                 }
                             }
                         }
@@ -96,14 +92,12 @@ angular
                     url: 'shiptracker',
                     views: {
                         'main@home': {
-                            templateUrl: componentsPath + '/shiptrackerView.html',
+                            templateUrl: componentsPath + '/shipTrackerView.html',
                             controller: 'shipTrackerCtrl',
                             resolve: {
-                                webServicesString: "webServicesLocal",
-                                data: function(webServicesString) {
-                                    return webServicesString.getShippingData().then(function(response) {
-                                        return response.data;
-                                    });
+                                webServiceRef: "shipsFactory",
+                                ships: function(webServiceRef) {
+                                    return webServiceRef.getShips();
                                 }
                             }
                         }

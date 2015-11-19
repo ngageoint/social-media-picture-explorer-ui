@@ -4,16 +4,16 @@
 
     angular
         .module('socialMediaExplorerApp')
-        .controller("labelledMapCtrl", ['$scope', 'imageMap', 'webServicesLocal', labeledImagesMapCtrl]);
+        .controller("labeledMediaGeoCtrl", ['$scope', 'labeledMedia', 'labeledMediaFactory', labeledMediaCtrl]);
 
-    function labeledImagesMapCtrl($scope, initData, $webServicesLocal) {
+    function labeledMediaCtrl($scope, initLabeledMedia, labeledMediaFactory) {
 
         var initPath = 'cargo_helicopter';
 
         $scope.markerWidth = 40;
         $scope.markerHeight = 40;
 
-        $scope.markers = createMarkers(initPath, initData);
+        $scope.markers = createMarkers(initPath, initLabeledMedia);
 
         //watch for zoom action and change the image sizes based on the zoom level
         $scope.$watch("center.zoom", function(event) {
@@ -55,11 +55,8 @@
                 iconSize: [300, 300],
                 iconAnchor: [300 / 2, 0]
             };
-            console.log(curMarker["icon"]);
 
             angular.extend(curMarker["icon"], icon);
-
-            console.log(curMarker["icon"]);
             //recenter the map to the double clicked image
             angular.extend($scope.center, {
                 lat: lat,
@@ -71,37 +68,33 @@
 
         $scope.changeData = function(path) {
             //create a promise and get the image data based on the passed in path            
-            var promise = $webServicesLocal.getImageMap(path);
+            var promise = labeledMediaFactory.getLabeledMedia(path);
             promise.then(
-                function(payload) {
-                    $scope.markers = createMarkers(path, payload.data);
+                function(labeledMedia) {
+                    $scope.markers = createMarkers(path, labeledMedia);
                 },
                 function(errorPayload) {
-                    //$log.error('failure loading image data', errorPayload);
+                    $log.error('failure loading labeled media', errorPayload);
                 });
         }
 
         //create the markers with the data set
-        function createMarkers(path, data) {
+        function createMarkers(path, labeledMedia) {
 
             var markers = {};
             var totalLat = 0.0;
             var totalLng = 0.0;
             var ctr = 0;
 
-            data = data.split("\n"); //split the data by newline
-
             //each data record pertains to a labelled image
-            data.forEach(function(image) {
-                var imageArr = image.trim(); //remove whitespace from the 
-                imageArr = imageArr.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g); //remove ugly things from the array
-                var id = imageArr[0].toString(); //image name also used as the id
-                var key = "marker" + id; //the key used for the current marker
+            for (var idx = 0; idx < labeledMedia.getCount(); idx++) {
+
+                var key = "marker" + labeledMedia.getId(idx); //the key used for the current marker
 
                 markers[key] = {
-                    lat: parseFloat(imageArr[1]),
-                    lng: parseFloat(imageArr[2]),
-                    message: imageArr[3]
+                    lat: labeledMedia.getLatitude(idx),
+                    lng: labeledMedia.getLongitude(idx),
+                    message: labeledMedia.getMessage(idx)
                 }; //create a new marker
 
                 //increment the total lat and lng for the entirety of the markers                
@@ -110,18 +103,18 @@
 
                 //create the icon for the current marker (an image)
                 markers[key]["icon"] = {
-                    iconUrl: "assets/images/" + path + "/" + imageArr[0] + ".jpg",
+                    iconUrl: labeledMedia.getMediaUrl(idx),
                     iconSize: [$scope.markerWidth, $scope.markerHeight],
                     iconAnchor: [$scope.markerWidth, 0], // point of the icon which will correspond to marker's location
                     popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
                 };
                 ctr++; //increment counter
-            });
+            }
 
             //the map is centered around the average lat and lng of all markers on the map
             $scope.center = {
-                lat: totalLat / data.length,
-                lng: totalLng / data.length,
+                lat: totalLat / labeledMedia.getCount(),
+                lng: totalLng / labeledMedia.getCount(),
                 zoom: 4
             };
 

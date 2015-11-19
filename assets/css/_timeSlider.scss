@@ -1,0 +1,23 @@
+.startTime,
+.curTime {
+    font: 12px $primary-font, sans-serif;
+}
+
+.curTime {
+    padding: 4px;
+
+    background-color: #1d99af;
+}
+
+.endTime {
+    float: right;
+
+    font: 12px $primary-font, sans-serif;
+}
+
+.startTime,
+.endTime {
+    padding: 4px;
+
+    background-color: $secondary-color;
+}

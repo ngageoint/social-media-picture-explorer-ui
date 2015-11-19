@@ -1,5 +1,5 @@
 (function() {
-	
+
     'use strict';
     angular
         .module('socialMediaExplorerApp')
@@ -9,7 +9,7 @@
     function ngaLogoDirective($rootScope, $state) {
         return {
             restrict: 'E',
-            templateUrl: './views/ngalogoView.html',
+            templateUrl: 'views/ngalogoView.html',
             link: function($rootScope, $stateParams, $scope, $state, $element) {
                 (function(window) {
 

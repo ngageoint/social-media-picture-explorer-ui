@@ -1,0 +1,42 @@
+body {
+    padding-top: 62px;
+    overflow: hidden;
+
+    color: white;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#991d40+0,d1455a+55 */
+    background-color: $primary-color;
+}
+
+select {
+    color: black;
+}
+
+.row {
+    top: 0;
+
+    margin: 0;
+}
+
+#main-bg {
+    padding-top: 0;
+    margin: 10px;
+}
+#nga-logo {
+    width: 500px;
+    height: 500px;
+    margin: 100px auto;
+}
+/* Specify styling for tooltip contents */
+.tooltip.customClass .tooltip-inner {
+    width: auto;
+
+    background-color: #999;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+#sub-menu-elements {
+    position: absolute;
+    right: 10px;
+
+    width: 200px;
+}

@@ -1,8 +1,0 @@
-<footer id="selected-images">		
-	<div id="no-selected-images" ng-show="vm.selectedImages.images.length == 0">No Images Selected</div>
-	<div id="selected-images-container" ng-show="vm.selectedImages.images.length != 0">		
-		<span class="selected-image-container" ng-repeat="obj in vm.selectedImages.images">			
-			<image src="{{obj}}" class="selected-image" tooltip-placement="top" tooltip-trigger="mouseenter" uib-tooltip="this is a tweet about crazy, crazy things." tooltip-append-to-body="true" tooltip-popup-delay="250" tooltip-animation="true" ng-click="vm.imageClick($index)" data="{{$index}}"/>
-		</span>
-	</div>	
-</footer>

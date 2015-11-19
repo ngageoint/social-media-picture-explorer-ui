@@ -1,0 +1,27 @@
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+    display: block;
+
+    border: 3px solid #444;
+    border-radius: 1px;
+}
+.labelled-media-file {
+    width: auto;
+
+    cursor: hand;
+
+    border-radius: 3px;
+    background-color: #999;
+}
+
+#ship-tracker .leaflet-marker-icon,
+.leaflet-marker-shadow {
+    display: block;
+
+    border-width: 0;
+    border-radius: 1px;
+}
+
+.angular-leaflet-map {
+    color: black;
+}

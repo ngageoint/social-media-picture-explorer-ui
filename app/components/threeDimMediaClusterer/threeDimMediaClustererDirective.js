@@ -4,28 +4,36 @@
 
     angular
         .module('socialMediaExplorerApp')
-        .directive("imageClusterer", [imageClustererDirective]);
+        .directive("threeDimMediaClusterer", [threedDimMediaClustererDirective]);
 
-    function imageClustererDirective(selectedImages) {
+    function threedDimMediaClustererDirective(selectedMediaFactory) {
         return {
             restrict: "E",
             scope: {
-                imageCoordinates: "=imagecoordinates"
+                media: "=media"
             },
-            templateUrl: './views/imageClustererInnerView.html',
+            templateUrl: 'views/threeDimMediaClustererInnerView.html',
             link: link,
             controller: controller,
             controllerAs: 'vm',
             bindToController: true
         };
 
-        function controller($scope, selectedImages) {
+        function controller($scope, selectedMediaFactory) {
             var vm = this;
-            //scope variables to display for general information
-            vm.selectedImages = selectedImages;
-            vm.highlightedImageCount = 0;
-            vm.selectSize = 2; //the size of the select range, currently can range from 1 to 3
 
+            //scope variables to display for general information
+            //the currently selected images
+            vm.selectedMedia = selectedMediaFactory;
+            //the amount of media currently highlighted (media are highlighted via proximity to mouse)
+            vm.highlightedMediaCount = 0;
+            //the size of the select range, currently can range from 1 to 3.  
+            //Alters the proximity of media highlighted and selected in relation to the mouse
+            vm.selectSize = 2;
+
+            //changes the select size based on the object passed to the function
+            //1 is the min select size
+            //3 is the max select size
             vm.changeSelectSize = function(obj) {
                 var sizeChange = obj.target.attributes.size.value; //get the selected object sizeChange value (increase or decrease)	      	
                 if (sizeChange.toLowerCase() == "increase") {
@@ -37,17 +45,17 @@
         }
 
         function link($scope, elem, attr) {
-            //init the 3d image clusterer with the image coordinates	
+            //init the 3d media clusterer with the media coordinates	
             if (!Detector.webgl) Detector.addGetWebGLMessage();
 
             var vm = $scope.vm;
             var container, stats;
-            var scene, renderer, particles, geometry, material, i, h, color, sprite, size, imagePlanes, raycaster, mouse, controls;
+            var scene, renderer, particles, geometry, material, i, h, color, sprite, size, mediaPlanes, raycaster, mouse, controls;
             var mouseX = 0,
                 mouseY = 0,
                 initRayCast = true;
 
-            createWorld(vm.imageCoordinates);
+            createWorld(vm.media);
             animateWorld();
 
             // When the destroy event is triggered, check to see if the above
@@ -57,23 +65,21 @@
                 function handleDestroyEvent() {
                     cancelAnimationFrame(vm.requestId);
                     renderer.domElement.addEventListener('dblclick', null, false); //remove listener to render
-                    scene, camera, controls, renderer, geometry, imagePlanes, vm.camera = null;
+                    scene, camera, controls, renderer, geometry, mediaPlanes, vm.camera = null;
                     empty(elem.find("#container")[0]);
 
                     function empty(elem) {
                         while (elem.lastChild) elem.removeChild(elem.lastChild);
                     }
                 }
-
-
             );
 
-            function createWorld(imageCoords) {
+            function createWorld(media) {
 
                 __createScene__();
 
                 function __createScene__() {
-                    THREE.ImageUtils.crossOrigin = ''; //allow loading of images from cross origin      
+                    THREE.ImageUtils.crossOrigin = ''; //allow loading of media from cross origin      
                     container = elem.find("#container")[0]; //container for 3js
 
                     vm.camera = new THREE.PerspectiveCamera(45, window.innerWidth / getWindowHeightAdjusted(), 1, 10000);
@@ -117,8 +123,8 @@
                     //setup the images and then add all images to the scene
                     geometry = new THREE.Geometry();
 
-                    imagePlanes = __createImagePlanes__(imageCoords);
-                    scene.add(imagePlanes);
+                    mediaPlanes = __createMediaPlanes__(media);
+                    scene.add(mediaPlanes);
 
                     //setup the webgl rendering
                     renderer = new THREE.WebGLRenderer({
@@ -136,11 +142,14 @@
                     document.addEventListener('mousemove', onMouseMove, false);
                     window.addEventListener('resize', onWindowResize, false);
 
-                    function __createImagePlanes__(data) {
+                    function __createMediaPlanes__(media) {
                         var planes = new THREE.Object3D();
-                        for (i = 0; i < 300; i++) {
+                        var maxMediaToShow = 300; //max size set to an amount of media that won't crush the user's browser
+                        var amtMediaToShow = media.getCount() > maxMediaToShow ? maxMediaToShow : media.getCount();
+
+                        for (i = 0; i < amtMediaToShow; i++) {
                             var bitmap = new Image();
-                            bitmap.src = '/assets/images/thumbnails/' + data[i].split("\t")[0]; // Pre-load the bitmap, in conjunction with the Start button, to avoid any potential THREE.ImageUtils.loadTexture async issues.
+                            bitmap.src = media.getMediaUrl(i); // Pre-load the bitmap, in conjunction with the Start button, to avoid any potential THREE.ImageUtils.loadTexture async issues.
                             bitmap.onerror = function() {
                                 console.error("Error loading: " + bitmap.src);
                             }
@@ -152,9 +161,9 @@
                             }); // Create a material (for the spherical mesh) that reflects light, potentially causing sphere surface shadows.                      
                             var plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
 
-                            plane.position.x = data[i].split("\t")[1];
-                            plane.position.y = data[i].split("\t")[2];
-                            plane.position.z = data[i].split("\t")[3];
+                            plane.position.x = media.getXCoordinate(i);
+                            plane.position.y = media.getYCoordinate(i);
+                            plane.position.z = media.getZCoordinate(i);
                             plane.imgSrc = bitmap.src;
 
                             planes.add(plane);
@@ -182,7 +191,7 @@
 
                     elem.dblclick(function(event) {
                         event.preventDefault();
-                        vm.selectedImages.images = _.pluck(vm.highlightedImages, "imgSrc");
+                        vm.selectedMedia.media = _.pluck(vm.highlightedMedia, "imgSrc");
                         $scope.$apply();
                         vm.camera.lookAt(new THREE.Vector3(0, 0, 0));
                     });
@@ -195,9 +204,9 @@
 
                 vm.requestId = requestAnimationFrame(animateWorld); //three js speak to call the animate method every so often                                           
 
-                //pass initial raycast because screen will be set with incorrect images selected
+                //pass initial raycast because screen will be set with incorrect media selected
                 if (!initRayCast) {
-                    __styleObjects__(imagePlanes, vm.camera, vm.selectSize);
+                    __styleObjects__(mediaPlanes, vm.camera, vm.selectSize);
                 }
 
                 initRayCast = false;
@@ -205,9 +214,9 @@
                 renderer.render(scene, vm.camera);
 
                 function __styleObjects__(objects, camera, selectSize) {
-                    var selectedObjects = []; //array to hold the euclidean distances of all images to the mouse location
+                    var selectedObjects = []; //array to hold the euclidean distances of all media to the mouse location
 
-                    //for each image, style the image and calculate the distance to the mouse
+                    //for each media, style the media and calculate the distance to the mouse
                     objects.children.forEach(function(obj) {
                         //style the image                   
                         styleUnselectedObject(obj);
@@ -233,7 +242,7 @@
                     //calculate the distance between the selected objects and the closest coordinates
                     var distances = getObjectAndCoordsDist(selectedObjects, closestCoords);
 
-                    //sort the images by the distance
+                    //sort the media by the distance
                     distances = _.sortBy(distances, "dist3D");
 
                     //get the coordinates of the closest object
@@ -248,7 +257,7 @@
 
                     //select the object that are within a certain distance from the closest selectable coordinates
                     //and style them appropriately
-                    vm.highlightedImages = [];
+                    vm.highlightedMedia = [];
 
                     //if an object existed in distance that is within a selectable range
                     if (closestObjCoords != null) {
@@ -259,12 +268,12 @@
                                 z: obj.obj.position.z
                             }
                             if (euclideanDistance3D(objPosition, closestObjCoords) < 3 * vm.selectSize) {
-                                vm.highlightedImages.push(obj.obj);
+                                vm.highlightedMedia.push(obj.obj);
                                 styleSelectedObject(obj);
                             }
                         });
                     }
-                    vm.highlightedImageCount = vm.highlightedImages.length;
+                    vm.highlightedMediaCount = vm.highlightedMedia.length;
                     $scope.$apply();
                 }
 
@@ -280,7 +289,7 @@
                 }
 
                 function toSelectObject(obj, camera, selectSize) {
-                    //calculate the distance from the image to the mouse
+                    //calculate the distance from the media to the mouse
                     var distMouseToPlane = euclideanDistance(toScreenPosition(obj, camera), {
                         'x': mouse.x,
                         'y': mouse.y
@@ -354,7 +363,7 @@
                 function euclideanDistance3D(loc1, loc2) {
                     return Math.sqrt(Math.pow(loc1.x - loc2.x, 2) + Math.pow(loc1.y - loc2.y, 2) + Math.pow(loc1.z - loc2.z, 2));
                 }
-                //project the image from 3d space to 2d coordinates
+                //project the media from 3d space to 2d coordinates
                 function toScreenPosition(obj, camera) {
                     var vector = new THREE.Vector3();
 
