@@ -65,8 +65,6 @@ imagename, lat, lng, message (in our case a tweet)
 
 This file is read in by the labeledMediaFactory and turned into a javascript object for easy access throughout the application.
 
-![alt tag](https://github.com/ngageoint/social-media-explorer-ui/blob/master/docs/labeled-geo-view.png)
-
 ##4. Ship Tracker
 The ship tracker loads data that is an array of arrays and is formatted as follows:
 In the current data format, one row of the array corresponds to one recording from a ship.  Only a max of one record is recorded for a ship per day.
