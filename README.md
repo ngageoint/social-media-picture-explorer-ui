@@ -1,5 +1,7 @@
 # social-media-explorer-ui
-This application visualizes social media data with an emphasis of geographic coordinates.  It currently consists of 4 main areas: 
+This application visualizes social media data with an emphasis of geographic coordinates.  
+
+####It currently consists of 4 main areas: 
 
 1.  3D Clusterer
 2.  Geo
@@ -46,8 +48,16 @@ also used :
 The app is currently structured into 4 main areas.
 
 ##1.  3D Clusterer
-The 3D clusterer takes a file of media data with 3d coordinates called imdata3d.txt stored in the images directory.
-The format of the file is filename\txcoord\tycoord\tzcoord\n.  The media is read in from the mediaFactory.js and displayed via threejs.  Media is highlighted according to a distance algorithm that takes in account the distance of the camera from the origin and the distance of the media from the mouse and each other.  Media can be selected by double clicking when it ise highlighted.  When clicking Geo, your selected items are carried over to the geographic view and a represented geographically.
+The 3D clusterer takes a file of media data with 3d coordinates and displayed via threejs.  Media is highlighted according to a distance algorithm that takes in account the distance of the camera from the origin and the distance of the media from the mouse and each other.  Media can be selected by double clicking when it ise highlighted.  When clicking Geo, your selected items are carried over to the geographic view and a represented geographically.
+
+Images are read from a file called imdata3d.txt stored in the images directory
+The format of the file is below:
+1. filename
+2. xcoord
+3. ycoord
+4. zcoord
+
+The records are delimited by tabs and each line is delimted by a new line.   The media is read in from the mediaFactory.js 
 
 ![alt tag](https://github.com/ngageoint/social-media-explorer-ui/blob/master/docs/3d-cluster-view.png)
 
@@ -61,18 +71,39 @@ The selectedMediaDisplay directive and service manages the selected items betwee
 ##3. Labeled Geo
 The labeled geo view presents media that was classified (labeled) by deep learning algorithms.  Currently, a folder in the assets/images directory represents a class of labeled images.  The buttons on the page are currently static, and simply send the path to a function that will refresh the screen with the desired data.  images.csv with the specified path contains the data and is as follows:
 
-imagename, lat, lng, message (in our case a tweet)
+1.  mediafilename
+2.  lat
+3.  lng
+4.  message 
 
-This file is read in by the labeledMediaFactory and turned into a javascript object for easy access throughout the application.
+The records are delimited by commas and each line is delimited by a new line. This file is read in by the labeledMediaFactory and turned into a javascript object for easy access throughout the application.  Modify this file to alter the object and/or data format.
 
 ##4. Ship Tracker
 The ship tracker loads data that is an array of arrays and is formatted as follows:
 In the current data format, one row of the array corresponds to one recording from a ship.  Only a max of one record is recorded for a ship per day.
 
-The data of the format is below:
-MMSI,Date,Status,Latitude,Longitude,shipname,type name,country,IMO,YOB,GT,LOA,Beam,shiptype,DWT,Type summary,Prev Port,Next Port
+Array values:
+0. MMSI
+1. Date
+2. Status
+3. Latitude
+4. Longitude
+5. shipname
+6. type 
+7. name
+8. country
+9. IMO
+10. YOB
+11. GT
+12. LOA
+13. Beam
+14. shiptype
+15. DWT
+16. Type 
+17. summary
+18. Prev Port
+19. Next Port
+
+### only fields 1 through 8 are currently used in the application.  The shipsFactory class reads in the data and provides an object to use to access throughout the application.  Modify this file to alter the object and/or data format.
 
 The ship tracker colors ships green that are not anchored or moored.  The tracker can be "played" to see the ships move over time.
-
-The shipsFactory class reads in the data and provides an object to use to access throughout the application.
-
