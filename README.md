@@ -1,4 +1,4 @@
-# social-media-explorer
+# social-media-explorer-ui
 This application visualizes social media data with an emphasis of geographic coordinates.  It currently consists of 4 main areas: 
 
 1.  3D Clusterer
@@ -31,12 +31,14 @@ The app is currently structured into 4 main areas.
 The 3D clusterer takes a file of media data with 3d coordinates called imdata3d.txt stored in the images directory.
 The format of the file is filename\txcoord\tycoord\tzcoord\n.  The media is read in from the mediaFactory.js and displayed via threejs.  Media is highlighted according to a distance algorithm that takes in account the distance of the camera from the origin and the distance of the media from the mouse and each other.  Media can be selected by double clicking when it ise highlighted.  When clicking Geo, your selected items are carried over to the geographic view and a represented geographically.
 
-
+![alt tag](https://github.com/ngageoint/social-media-explorer-ui/blob/master/docs/3d-cluster-view.png)
 
 ##2.  Geo
 The geographic view displays the media that are selected from the 3D clusterer on a leaflet provided map.  The directive provides multiple basemaps and can be extended to provide more.  If you click on one of the items from the row of selected media on the bottom of the screen, the map will focus on the image.
 
 The selectedMediaDisplay directive and service manages the selected items between the 3D Clusterer and Geo views.
+
+![alt tag](https://github.com/ngageoint/social-media-explorer-ui/blob/master/docs/geo-view.png)
 
 ##3. Labeled Geo
 The labeled geo view presents media that was classified (labeled) by deep learning algorithms.  Currently, a folder in the assets/images directory represents a class of labeled images.  The buttons on the page are currently static, and simply send the path to a function that will refresh the screen with the desired data.  images.csv with the specified path contains the data and is as follows:
@@ -44,6 +46,8 @@ The labeled geo view presents media that was classified (labeled) by deep learni
 imagename, lat, lng, message (in our case a tweet)
 
 This file is read in by the labeledMediaFactory and turned into a javascript object for easy access throughout the application.
+
+![alt tag](https://github.com/ngageoint/social-media-explorer-ui/blob/master/docs/labeled-geo-view.png)
 
 ##4. Ship Tracker
 The ship tracker loads data that is an array of arrays and is formatted as follows:
