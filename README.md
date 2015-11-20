@@ -13,7 +13,8 @@ These views are discussed in further depth below.
 * Bower is used for dependency injection and Grunt is used as the task runner.  
 * Run `grunt build` for building distribution and `grunt serve` for building for development.  'grunt serve:dist' will build and view for distribution.
 
-##Steps to get you up and running :)  $ represent cmd prompt.  Do not type it in the prompt.
+##Steps to get you up and running :)  
+* $ represent cmd prompt.  Do not type it in the prompt.
 * Clone repo!
 * Download Node.js at https://nodejs.org/
   * Verify Node Package Manager is installed $ npm -v
