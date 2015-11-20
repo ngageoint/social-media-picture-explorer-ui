@@ -28,9 +28,8 @@
         }, true);
 
         $scope.layoutSliderChanged = function(value) {
-            $scope.getData(ship, value);
+            $scope.getData(ships, value);
         };
-
 
         //events to occur on a double click on the leaflet map
         $scope.$on('leafletDirectiveMarker.dblclick', function(e, args) {
@@ -64,6 +63,7 @@
             $scope.layoutEndTimeMS = range.max;
             $scope.layoutStartTimeMS = range.min;
             $scope.currentDate = range.min;
+            $scope.layoutCurTimeMS = range.min;
         }
 
         var stop;
@@ -179,6 +179,7 @@
             // Make sure that the interval is destroyed too
             $scope.stopPlay();
         });
+
 
     }
 })();

@@ -4,9 +4,9 @@
 
     angular
         .module('socialMediaExplorerApp')
-        .factory('shipsFactory', ['$http', shipsFactory]);
+        .factory('shipsFactory', ['$http', 'APP_CONFIG', shipsFactory]);
 
-    function shipsFactory($http) {
+    function shipsFactory($http, APP_CONFIG) {
         function ships(shipData) {
             if (shipData) {
                 this.setData(shipData);
@@ -36,7 +36,7 @@
                 this.prevIdx = 18;
                 this.portIdx = 19;
                 this.nextPortIdx = 20;
-                this.pathToMedia = "assets/images/";
+                this.pathToMedia = APP_CONFIG.baseImageUrl;
             },
             getRowAsArray: function(idx) {
                 return this.data[idx];
@@ -85,10 +85,10 @@
                 };
             },
             getShipIconUrl: function(idx) {
-                var iconUrl = "assets/images/shipgreen.png";
+                var iconUrl = APP_CONFIG.baseImageUrl + "shipgreen.png";
                 var status = this.getStatus(idx).toLowerCase();
                 if (status == "at anchor" || status == "moored" || status == "not under command") {
-                    iconUrl = "assets/images/shipred.png";
+                    iconUrl = APP_CONFIG.baseImageUrl + "shipred.png";
                 }
 
                 return iconUrl;
@@ -114,7 +114,7 @@
         return {
             getShips: function() {
                 return $http({
-                    url: 'assets/data/aisdataoneaday.json',
+                    url: APP_CONFIG.baseDataUrl + APP_CONFIG.shipsFactoryFilename,
                     method: "GET",
                     cache: true
                 }).then(function(response) {

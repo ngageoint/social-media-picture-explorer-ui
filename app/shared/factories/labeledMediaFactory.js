@@ -9,9 +9,9 @@ and provides an object to access the data.
 
     angular
         .module('socialMediaExplorerApp')
-        .factory('labeledMediaFactory', ['$http', labeledMediaFactory]);
+        .factory('labeledMediaFactory', ['$http', 'APP_CONFIG', labeledMediaFactory]);
 
-    function labeledMediaFactory($http) {
+    function labeledMediaFactory($http, APP_CONFIG) {
         function labeledMedia(labeledMediaData, path) {
             if (labeledMediaData) {
                 this.setData(labeledMediaData);
@@ -25,7 +25,7 @@ and provides an object to access the data.
                 this.latitudeIdx = 1;
                 this.longitudeIdx = 2;
                 this.messageIdx = 3;
-                this.pathToMedia = "assets/images/";
+                this.pathToMedia = APP_CONFIG.baseImageUrl;
             },
             getRowAsArray: function(idx) {
                 return this.data[idx].trim().match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
@@ -57,7 +57,7 @@ and provides an object to access the data.
                 return (function(path) {
                     var p = path;
                     return $http({
-                        url: 'assets/images/' + path + '/images.csv',
+                        url: APP_CONFIG.baseImageUrl + path + "/" + APP_CONFIG.labeledMediaFactoryFilename,
                         method: "GET",
                         cache: true
                     }).then(function(response) {

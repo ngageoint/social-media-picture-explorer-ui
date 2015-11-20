@@ -1,10 +1,10 @@
 .startTime,
 .curTime {
-    font: 12px $primary-font, sans-serif;
+    font: 15px $primary-font, sans-serif;
 }
 
 .curTime {
-    padding: 4px;
+    padding: 6px;
 
     background-color: #1d99af;
 }
@@ -12,7 +12,7 @@
 .endTime {
     float: right;
 
-    font: 12px $primary-font, sans-serif;
+    font: 15px $primary-font, sans-serif;
 }
 
 .startTime,
@@ -20,4 +20,38 @@
     padding: 4px;
 
     background-color: $secondary-color;
+}
+input[type=range] {
+    margin: 20px 0 20px 0;
+
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+
+    border: none;
+    border-radius: 3px;
+    background: #ddd;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    margin-top: -4px;
+
+    border: none;
+    border-radius: 50%;
+    background: $tertiary-color;
+
+    -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
 }

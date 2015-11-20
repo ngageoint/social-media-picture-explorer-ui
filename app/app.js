@@ -105,3 +105,12 @@ angular
                 });
         }
     ]);
+
+angular.module('socialMediaExplorerApp').constant('APP_CONFIG', {
+    baseImageUrl: 'assets/images/',
+    baseDataUrl: 'assets/data/',
+    mediaThumbnailUrl: 'assets/images/thumbnails/',
+    shipsFactoryFilename: 'aisdataoneaday.json',
+    mediaFactoryFilename: 'imdata3d.txt',
+    labeledMediaFactoryFilename: 'images.csv'
+});

@@ -10,9 +10,9 @@ informatino such as latitude, longitude, media details, etc.
 
     angular
         .module('socialMediaExplorerApp')
-        .factory('mediaFactory', ['$http', mediaFactory]);
+        .factory('mediaFactory', ['$http', 'APP_CONFIG', mediaFactory]);
 
-    function mediaFactory($http) {
+    function mediaFactory($http, APP_CONFIG) {
         function media(mediaData) {
             if (mediaData) {
                 this.setData(mediaData);
@@ -26,7 +26,7 @@ informatino such as latitude, longitude, media details, etc.
                 this.yCoordinateIdx = 2;
                 this.zCoordinateIdx = 3;
                 this.splitChar = "\t";
-                this.pathToMedia = 'assets/images/thumbnails/';
+                this.pathToMedia = APP_CONFIG.mediaThumbnailUrl;
                 this.data = mediaData.split("\n");
             },
             getRowAsArray: function(idx) {
@@ -49,11 +49,12 @@ informatino such as latitude, longitude, media details, etc.
             getCount: function() {
                 return this.data.length;
             }
-};        return {
+        };
+        return {
             getMedia: function() {
 
                 return $http({
-                        url: 'assets/data/imdata3d.txt',
+                        url: APP_CONFIG.baseDataUrl + APP_CONFIG.mediaFactoryFilename,
                         method: "GET",
                         cache: true
                     })
