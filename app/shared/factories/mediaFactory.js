@@ -25,7 +25,7 @@ informatino such as latitude, longitude, media details, etc.
                 this.xCoordinateIdx = 1;
                 this.yCoordinateIdx = 2;
                 this.zCoordinateIdx = 3;
-                this.splitChar = "\t";
+                this.splitChar = ",";
                 this.pathToMedia = APP_CONFIG.mediaThumbnailUrl;
                 this.data = mediaData.split("\n");
             },

@@ -82,7 +82,7 @@ angular
                             resolve: {
                                 webServiceRef: "labeledMediaFactory",
                                 labeledMedia: function(webServiceRef) {
-                                    return webServiceRef.getLabeledMedia("cargo_helicopter");
+                                    return webServiceRef.getLabeledMedia("example_media");
                                 }
                             }
                         }
@@ -110,7 +110,7 @@ angular.module('socialMediaExplorerApp').constant('APP_CONFIG', {
     baseImageUrl: 'assets/images/',
     baseDataUrl: 'assets/data/',
     mediaThumbnailUrl: 'assets/images/thumbnails/',
-    shipsFactoryFilename: 'aisdataoneaday.json',
-    mediaFactoryFilename: 'imdata3d.txt',
-    labeledMediaFactoryFilename: 'images.csv'
+    shipsFactoryFilename: 'ships.json',
+    mediaFactoryFilename: 'media.csv',
+    labeledMediaFactoryFilename: 'media.csv'
 });
