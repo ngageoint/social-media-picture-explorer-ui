@@ -5,11 +5,11 @@ dist
 bower_components
 *.png
 *.jpg
-assets/images/cargo_helicopter/*
-assets/images/drilling_platform/*
-assets/images/military_uniform/*
-assets/images/ship/*
-assets/images/tank/*
+assets/images/cargo_helicopter/
+assets/images/drilling_platform/
+assets/images/military_uniform/
+assets/images/ship/
+assets/images/tank/
 !assets/images/*.png
 !docs/*.png
 assets/data/*
