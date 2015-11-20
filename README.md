@@ -9,7 +9,24 @@ This application visualizes social media data with an emphasis of geographic coo
 These views are discussed in further depth below.
 
 ## Build & development
-This project was scaffolded with yeoman angular generator.  Bower is used for dependency injection and Grunt is used as the task runner.  Run `grunt build` for building distribution and `grunt serve` for building for development.  'grunt serve:dist' will build and view for distribution.
+* This project was scaffolded with yeoman angular generator.  
+* Bower is used for dependency injection and Grunt is used as the task runner.  
+* Run `grunt build` for building distribution and `grunt serve` for building for development.  'grunt serve:dist' will build and view for distribution.
+
+##Steps to get you up and running :)  $ represent cmd prompt.  Do not type it in the prompt.
+* Clone repo!
+* Download Node.js at https://nodejs.org/
+  * Verify Node Package Manager is installed $ npm -v
+  * If previous command does not echo npm version num search google for help :)
+* Install Bower (http://bower.io/), Grunt (http://gruntjs.com/) or Node Package Manager (https://www.npmjs.com/) for details.
+  * To install use $ npm install
+  * See bower.io, gruntjs or for more details.
+* Install Bower dependencies (this downloads all external needed js/css/etc for the app to run)
+  * In command prompt navigate to the repo directory and use $ bower install
+  * You may be asked to resolve dependencies. Don't panic.
+* Run app locally using grunt serve.  Files are output to .tmp folder.  
+* You may need to type in the localhost:port into your browser to view the running app.
+* Deploy app using grunt build and copy contents of .dist to serve
 
 ##Leveraged frameworks and libraries
 The application is built using bootstrap, sass, and AngularJS 1.4.7 with some angular plugins.  It heavily relies on the Threejs and the angular leaflet directive.
