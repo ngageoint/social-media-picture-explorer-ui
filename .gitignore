@@ -4,5 +4,6 @@ dist
 .sass-cache
 bower_components
 *.png
-!assets/images/*.png
+assets/images/*.png
 *.jpg
+!docs/*.png
