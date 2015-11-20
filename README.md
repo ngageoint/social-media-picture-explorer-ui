@@ -46,7 +46,7 @@ also used :
 * svg draw animation : http://tympanus.net/Development/SVGDrawingAnimation/
 * angular timeslider : http://jsfiddle.net/lsiv568/WJqx7/1/
 
-The app is currently structured into 4 main areas.
+The app is currently structured into 4 main areas.  All file paths are defined in APP_CONFIG in app.js.  Feel free to change these paths to meet the needs of your app.
 
 ##1.  3D Clusterer
 The 3D clusterer takes a file of media data with 3d coordinates and displayed via threejs.  Media is highlighted according to a distance algorithm that takes in account the distance of the camera from the origin and the distance of the media from the mouse and each other.  Media can be selected by double clicking when it ise highlighted.  When clicking Geo, your selected items are carried over to the geographic view and a represented geographically.
