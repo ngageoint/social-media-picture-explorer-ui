@@ -1,6 +1,6 @@
-# social-media-explorer-ui
+# What it Does
 
-The Social Media Explorer allows users to explore social media by using state of the art machine learning techniques to cluster similar images and provide automatic object recognition. This allows users to navigate social media and attached pictures via visual similarity to ease sifting through large amounts of graphical data without the need for specialized language skills for meta-text descriptions. 
+The Social Media Picture Explorer allows users to explore social media by using state of the art machine learning techniques to cluster similar images and provide automatic object recognition. This allows users to navigate social media and attached pictures via visual similarity to ease sifting through large amounts of graphical data without the need for specialized language skills for meta-text descriptions. 
 
 ####It currently consists of 4 main areas: 
 
