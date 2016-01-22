@@ -110,3 +110,9 @@ Array values:
 ### only fields 1 through 8 are currently used in the application.  The shipsFactory class reads in the data and provides an object to use to access throughout the application.  Modify this file to alter the object and/or data format.
 
 The ship tracker colors ships green that are not anchored or moored.  The tracker can be "played" to see the ships move over time.
+
+##Contributing
+
+Social Media Picture Explorer UI was developed at the National Geospatial-Intelligence Agency (NGA) in collaboration with Booz Allen. The government has "unlimited rights" and is releasing this software to increase the impact of government instruments by providing developers with the opportunity to take things in new directions. The software use, modification, and distribution rights are stipulated within the Apache 2.0 License. See NOTICE file for additional information regarding dependency stipulations.
+
+Software source code previously released under an open source license and then modified by NGA staff is considered a "joint work" (see 17 USC 101); it is partially copyrighted, partially public domain, and as a whole is protected by the copyrights of the non-government authors and must be released according to the terms of the original open source license.
