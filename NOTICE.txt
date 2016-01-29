@@ -1,5 +1,5 @@
 
-This notice lists all non-OSI and non-FSF reviewed license stipulations used in Social Media Picture Explorer UI.
+This notice lists all license stipulations from dependencies used in Social Media Picture Explorer UI.
 
 AngularJS Dropdown Multiselect 
 Unspecified license at https://github.com/dotansimha/angularjs-dropdown-multiselect
